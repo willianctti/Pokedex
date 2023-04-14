@@ -1,0 +1,103 @@
+Primeiro, criamos nosso novo app com um ng new
+
+
+
+Como de costume, nossa primeira coisa a se fazer
+após iniciar o ng new é organizar nosso app. 
+No HTML do app, pegamos o router outlet e apagamos
+todo o restante do html. Em seguida, colocamos nosso 
+router lá no nosso app.component para ser mostrado
+no app todo.
+
+
+
+Depois de organizar tudo, criamos, na pasta src, um preset
+de nosso scss. 
+
+
+
+Agora, criamos também o arquivo das variáveis do nosso
+scss.
+
+
+
+Em nosso style principal do app, chamamos os 2 arquivos
+de nossa config scss.
+
+
+
+Agora, vamos criar um novo arquivo scss para usarmos uma
+função que converte todo tipo de px para Rem:
+
+@function rem-calc($size){
+    $value: $size / 16;
+    @return #{value}rem;
+}
+
+
+
+
+
+Agora, vamos criar nosso primeiro modulo
+
+ng g m pages
+
+Agora, vamos no nosso modulo principal (app.module)
+e importamos o nosso novo módulo criado anteriormente
+
+
+
+
+
+E então, agora, nosso prmieiro componente que será
+a página home
+
+ng g c pages/home
+
+
+
+
+Vamos fazer nossa rota utilizando o Lazy loading: 
+
+na rota do app principal:
+
+Aqui utilizamos o loadChildren, que funciona
+com uma função de import:
+
+{
+    path: '',
+    loadChildren: () => import('./pages/pages.module').then(p => p.PagesModule)
+  }
+
+
+
+na rota do novo modulo:
+
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  }
+];
+
+chamamos nossa home
+
+
+
+
+
+Agora criamos mais um componente que ficará na home
+chamado Details
+
+ ng g c pages/details --skip-import
+
+aqui tive que importar manualmente por o angular
+não sabia em qual módulo importar nosso novo componente
+
+
+também, já cadastrei-o nas rotas:
+
+{
+    path: 'details',
+    component: DetailsComponent
+  }
