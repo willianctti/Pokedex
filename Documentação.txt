@@ -165,3 +165,22 @@ exports: [
     PokeHeaderComponent,
     PokeSearchComponent,
     PokeListComponent
+
+
+
+
+
+
+
+Vamos criar agora a região de busca no nosso componente
+poke-search:
+
+Para começar, colocamos uma section com nosso input
+dentro:
+
+<section>
+    <input type="text" placeholder="Buscar Pokemon...">
+    <img src="../../../assets/search.svg" alt="Buscar Pokemon..." >
+</section>
+
+Agora, vamos estiliza-lo
