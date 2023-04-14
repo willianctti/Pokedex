@@ -101,3 +101,67 @@ também, já cadastrei-o nas rotas:
     path: 'details',
     component: DetailsComponent
   }
+
+
+
+
+
+Agora vamos finalmente começar realmente nosso projeto
+
+
+
+Vamos começar com um novo módulo para criar componentes
+compartilháveis
+
+ng g m shared
+
+Criamos nosso componente de header com o nome poke-header
+
+no nosso modulo shared exportamos nosso componente 
+poke-header para podermos utiliza-lo em todo nosso app:
+
+@NgModule({
+  declarations: [
+    PokeHeaderComponent
+  ],
+  exports: [
+    PokeHeaderComponent
+  ],
+
+
+precisamos também importar nosso módulo shared
+no nosso módulo pages:
+
+imports: [
+    CommonModule,
+    RoutingModule,
+    SharedModule
+  ]
+
+
+
+Agora, vamos exportar nosso componente poke header
+de dentro de nosso modulo shared para nossa home 
+principal que está lá em pages/home
+
+
+
+Finalmente, começamos amodificar nosso html:
+
+Começamos colocando nosso header com nossa imagem
+do pokedex e o estilizamos
+
+Agora, vamos fazer nosso componente de busca
+
+ng g c shared/poke-search
+
+e o importamos no html da home dentro do pages assim
+como feito com o c poke-header
+
+Se não exportamos nossos componentes feitos dentro de
+shared um erro aparecerá. Para resolve-lo, basta 
+exportar em shared.module como esse exemplo:
+exports: [
+    PokeHeaderComponent,
+    PokeSearchComponent,
+    PokeListComponent
