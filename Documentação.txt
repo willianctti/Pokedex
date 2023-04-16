@@ -183,5 +183,134 @@ dentro:
     <img src="../../../assets/search.svg" alt="Buscar Pokemon..." >
 </section>
 
-Agora, vamos estiliza-lo
+Agora, é só estiliza-lo.
+
+
+
+
+Em seguida, vamos começar a nossa list.
+
+
+EM poke-list.html começamos com um <a> para que,
+quando clicado, abra uma página que especifica 
+o pokemon clicado.
+Dentro, fizemos 2 sections; Uma para o nome e especificação
+do pokemon e a outra para a imagem do pokemon:
+
+
+<a class="pokemon">
+   <section class="pokemon__status">
+    <h2>
+        Bulbasaur
+    </h2>
+
+    <ul>
+        <li>Grass</li>
+        <li>Poison</li>
+    </ul>
+   </section>
+   <section class="pokemon__image">
+    <img src="../../../assets/pokemon.svg" alt="Bulbasaur">
+   </section>
+</a>
+
+Agora vamos estilizar.
+
+
+
+
+Vamos começar, agora, a utilizar nosso service.
+
+ng g s service/pokeApi
+
+Vamos fazer uma mini-API. Mas antes, temos que registrar
+o HTTP client. Para isso, o registramos lá em app.module
+ou seja, no modulo principal.
+
+imports: [
+    BrowserModule,
+    AppRoutingModule,
+    PagesModule,
+    HttpClientModule
+
+import  { HttpClientModule } from '@angular/common/http';
+
+Mas por quê usar o httpclient?
+
+Quando queremos fazer alguma requisição fetch
+ou ajax, com o Angular temos seu próprio metodo, 
+o HttpClient.
+
+Voltando a nosso service, no constructor precisamos 
+chamar o metodo do httpclient.
+
+Agora, está tudo pronto. Precisamos agora entender 
+como nossa API funcionará.
+
+Ela será simples, trará uma lista de 100 pokemons:
+https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100
+
+colocamos nossa api com um metodo privado
+
+
+
+
+
+
+Agora, vamos fazer um método que vai 'puxar' nosso
+pokemon
+Para isso, vamos usar uma coisa do TypeScript: o get.
+
+ get apiListAllPokemons():Observable<any>{
+    return 
+  }
+
+Mas por que esse Observable?
+
+O observable ficará "observando" o que está na nossa
+requisição.
+
+Para fazer nosso observable funcionar, precisamos chamar
+um return com this.http.get:
+  get apiListAllPokemons():Observable<any>{
+    return this.http.get<any>(this.url).pipe(
+      
+    )
+  }
+ 
+mas por que esse pipe?
+
+O pipe nada mais é que como se fosse um filtro no nosso
+http que criará uma conexão. No nosso caso, primeiro
+vamos fazer um teste que retornará nosso result principal.
+
+no nosso primeiro tap vamos receberr algo e responder algo.
+
+e no outro tap vamos receber uma função que darpa o console log 
+de todos os pookemons da api:
+
+get apiListAllPokemons():Observable<any>{
+    return this.http.get<any>(this.url).pipe(
+      tap(res => res), 
+      tap( res => {
+        console.log(res)
+      })
+
+agora, precisamos pegar nosso service la no osso
+copmponente de listagem para fazermos o teste
+para visualizar os pokemons.
+
+export class PokeListComponent implements OnInit{
+  constructor(
+    private pokeApiService: PokeApiService 
+  ) {}
+
+  ngOnInit(): void {
+    this.pokeApiService.apiListAllPokemons.subscribe(
+      res => res
+    )
+  }
+
+Para ele realemente carregar, precisamos chamar ele
+no ngOnInit assim como no exemplo acima.
 
