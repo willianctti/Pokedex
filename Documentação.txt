@@ -314,3 +314,115 @@ export class PokeListComponent implements OnInit{
 Para ele realemente carregar, precisamos chamar ele
 no ngOnInit assim como no exemplo acima.
 
+
+
+Agora vamos dar continuidade para fazermos a listagem
+dos serviços.
+
+Ao inves de usar o console log para mostrar os valores
+que foi apenas uma fforma de teste, vamos utilizar o
+seguinte codigo:
+
+res.results.map( (resPokemons: any) => {
+	
+
+
+Precisamos lembrar sempre de usar o Subscribe.
+
+Vamos criar um metodo publico com nosso codigo 
+que faz uma chamada get:
+
+public apiGetPokemons( url: string):Observable<any> {
+    return this.http.get<any>(url).pipe(
+      map(
+        res => res
+      )
+    )
+  }
+
+
+Relembrando passo a passo:
+
+Criamos 2 metodos:
+	um get que apiListAllPokemons()
+	fizemos um http get com um htt client
+	e a partir disso passamos nossa url da api
+essa url retornará primeiro um objeto
+e dentro desse objeto precisamos pegar outros objetos
+por que ela não da o valor cheio. Para isso damos um tap
+que primeiro retorna um valor e dentro desse valor
+damos outro tap que retornará os results. A partir disso
+damos um res.results que fica dentro do nosso objeto 
+que trará um array dos pokemons que vem direto da API.
+A partir disso, quando recfebemos nosso seguindo tap fazemos
+um map dele que cria novos objetos a cada vez que passsamos
+em cada array. Usando nosso map do JS, sempre que
+passamos por um nó damos um this.apiGetPokemon fazemos
+uma chamada que recebe a url que vem do http que vem da api
+
+get apiListAllPokemons():Observable<any>{
+    return this.http.get<any>(this.url).pipe(
+      tap(res => res), 
+      tap( res => {
+        res.results.map( (resPokemons: any) => {
+          
+          this.apiGetPokemons(resPokemons.url).subscribe(
+            res => resPokemons.status = res 
+          );
+
+        })
+      })
+    )
+  }
+  public apiGetPokemons( url: string):Observable<any> {
+    return this.http.get<any>(url).pipe(
+      map(
+        res => res
+      )
+    )
+  }
+}
+
+
+
+
+
+
+Agora, temos que passar os dados da api para nosso html.
+
+
+Primeiro fazemos um metodo publico getAllPokemons que
+será uma any
+
+no nosso res receberemos o valor de res
+ngOnInit(): void {
+    this.pokeApiService.apiListAllPokemons.subscribe(
+      res => {
+      this.getAllPokemons = res.results;
+
+      console.log(this.getAllPokemons);
+      }
+
+
+
+Agora em nosso html
+
+vamos criar um ng-template
+
+e damos um ngfor no nosso ngtemplate 
+<ng-template ngFor let-pokemon [ngForOf]="getAllPokemons">
+
+para popular nossas li com a especialidade de cada pokemon
+usamos um ngfor:
+
+  <ul>
+             <li *ngFor="let value of pokemon?.status.types">
+                {{value.type.name}}
+
+             </li> 
+
+
+Agora, para adicionarmos a imagem de cada pokemon:
+
+
+

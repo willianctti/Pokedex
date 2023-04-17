@@ -1,6 +1,7 @@
 :host {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-top: 20px;
 
     .pokemon {
@@ -10,6 +11,7 @@
 
         width: calc(49% - 40px);
         height: 120px;
+        margin-bottom: 10px;
         padding: 20px;
 
         border-radius: 10px;
@@ -19,7 +21,7 @@
                 font-size: 24px;
                 font-style: italic;
                 font-weight: 800;
-
+                text-transform: capitalize;
                 margin-bottom: 10px;
             }
 
