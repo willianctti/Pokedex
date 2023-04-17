@@ -424,5 +424,52 @@ usamos um ngfor:
 
 Agora, para adicionarmos a imagem de cada pokemon:
 
+ <section class="pokemon__image">
+         <img 
+            [src]="pokemon.status.sprites.other.dream_world.front_default" 
+            alt="pokemon.name">
+        </section>
+
+
+
+
+Agora, vamos adicionar os detalhes de cada pokemon:
+
+Primeiro, em nosso html, vamos adicionar nosso routerLink
+para chamar nossa nova págin:
+    <a [routerLink]="['details', pokemon.status.id]" class="pokemon" *ngIf="pokemon.status">
+
+Mas, para isso, vamos ter que ir no nosso modulo 
+shared e importar o routerLink
+
+
+
+
+Agora, vamos começar a trabalhar nosso search,
+ou seja, nossa poke-header:
+
+Em nosso poke-search.component, vamos fazr um novo
+output que lançará os dados para que nossa lista possa 
+pega-los:
+
+  @Output() public emmitSearch: EventEmitter<string> = new EventEmitter();
+
+agora, fazemos uma função que retorna o search apenas
+para teste:
+ public search(value: string) {
+    console.log(value);
+  } 
+
+no nosso html da poke search, aonde colocamos nosso
+input, adicionar o seguinte codigo:
+    <input type="text" #input (keyup)="search(input.value)" placeholder="Buscar Pokemon...">
+
+para que quando uma tecla for apertada ele jogue na 
+função que retorna o valor da string escrita.
+
+
+
+Vamos fazer, agora, nossa list realmente fazer o nosso
+input para receber o que foi digitado no nosso Output;
 
 

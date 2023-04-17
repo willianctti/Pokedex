@@ -1,4 +1,8 @@
 :host {
+    
+}
+.listagem {
+
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -16,6 +20,8 @@
 
         border-radius: 10px;
 
+        text-decoration: none;
+        color: black;
         &__status {
             h2 {
                 font-size: 24px;
