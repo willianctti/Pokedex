@@ -473,3 +473,24 @@ Vamos fazer, agora, nossa list realmente fazer o nosso
 input para receber o que foi digitado no nosso Output;
 
 
+Vamos criar uma funcionalidade que vai resgatar o que foi digitado:
+public getSearch(value: string) {
+    const filter = this.getAllPokemons.filter( (res: any ) => {
+      return !res.name.indexOf(value.toLowerCase())
+    })
+
+Aqui nascerá um erro. O filtro funcionará mas quando
+apagamos ele não volta ao normal.
+Para arrumar isso, vamos fazer um novo método
+privado:
+  private setAllPokemons: any;
+
+e trocamos no nosso subscribe
+
+ res => {
+        this.setAllPokemons = res.results
+      this.getAllPokemons = this.setAllPokemons;
+      }
+
+
+
