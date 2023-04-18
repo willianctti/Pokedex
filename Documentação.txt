@@ -494,3 +494,80 @@ e trocamos no nosso subscribe
 
 
 
+
+
+
+
+Agora, vamos trabalhar com nosso details.
+
+
+
+Para começar, temos que quando abrir determinado
+pokemonn ele puxe também o id do determinado pokemon.
+Vamos começar pela lógica do nosso componente.
+
+Vamos utilizar o metodo get:
+
+primeiro, vamos pegar o id do pokemon que é passado.
+Para isso, vamos utilizart o activatedRoute:
+
+constructor(
+    private activatedRoute: ActivatedRoute
+  ) {
+
+
+fazemos nosso metodo get utilizando a activatedRoute:
+
+get pokemon() {
+    const id = this.activatedRoute.snapshot.params['id'];
+    return console.log(id)
+  }
+
+assim, o id do pokemon que foi aberto estará aparecendo.
+
+
+Precisamos, também, pegar o pokemon carregado com outras
+informações.
+
+Primeiro, importamos nossa service para nosso componenyte
+de details.
+
+agora, fazemos uma const que pega o pokemon :
+
+    const pokemon = this.pokeApiService.apiGetPokemons(`${this.urlPokemon}/${id}`)
+
+
+Agora vamos também uma constante que pega a espécie do
+meu pokemon:
+
+    const name = this.pokeApiService.apiGetPokemons(`${this.urlName}/${id}`)
+
+
+Vamos começar agora a usar o forkJoin:
+
+ return forkJoin([pokemon, name]).subscribe(
+      res => {
+       console.log(res)
+      }
+    );
+
+Dando continuaidade, vaqmos começar a mostrar o pokemon
+lá na pagina.
+
+Vamos começar criando um metodo publico e o colocamos
+como respota do nosso forkJoin
+
+ return forkJoin([pokemon, name]).subscribe(
+      res => {
+       this.pokemon = res;
+      }
+
+Voltando para nosso html o criamos e depois estilizamos.
+
+Agora, tudo deve estar finalizado. Porém, ainda temos alguns erros rolando
+no console.
+
+Para evitar carregamentos antes da página for completamentre
+carregada, utilizaremos um ngIf que inicia cno nosso componente
+com um false, ou seja, um valor booleano.
+
